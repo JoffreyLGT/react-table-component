@@ -1,0 +1,11 @@
+.data-presenter{
+  text-align: left;
+  width: 500px;
+  margin: 20px;
+}
+
+.data-presenter input{
+  width: 200px;
+  margin-left:10px;
+  margin-bottom: 10px;
+}
