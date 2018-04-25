@@ -1,14 +1,21 @@
 import React, { Component } from "react";
 
 const Table = props => {
-  const content = props.data.map(e => e);
+  const { data, handleSorting } = props;
+  const content = data.map(e => e);
   const header = content.shift();
 
   return (
     <table className="table is-striped is-narrow is-hoverable">
       <thead>
         <tr>
-          {header.map((column, index) => <th key={`th${index}`}>{column}</th>)}
+          {header.map((column, index) => (
+            <th key={`th${index}`}>
+              <a id={`sortCol${index}`} onClick={handleSorting}>
+                {column}
+              </a>
+            </th>
+          ))}
         </tr>
       </thead>
       <tbody>
