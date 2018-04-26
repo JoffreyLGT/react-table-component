@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
-import DataPresenter from "./containers/DataPresenter";
+import DataPresenter from "./containers/DataPresenter/DataPresenter";
 import "./App.css";
 
 class App extends Component {

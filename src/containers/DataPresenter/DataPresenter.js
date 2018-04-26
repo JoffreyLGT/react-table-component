@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Table from "../../components/Table";
+import Table from "../../components/Table/Table";
 import "./style.css";
 
 class DataPresenter extends Component {
@@ -7,7 +7,7 @@ class DataPresenter extends Component {
     super(props);
     this.state = {
       data: this.props.data,
-      sortedColumn: [0, "desc"]
+      sortedColumn: [null, null]
     };
     this.filterTable = this.filterTable.bind(this);
     this.handleSorting = this.handleSorting.bind(this);
@@ -50,8 +50,6 @@ class DataPresenter extends Component {
       sortedData.sort((a, b) => a[colToSort].localeCompare(b[colToSort]));
       newSortedColumn = [colToSort, "desc"];
     }
-    console.log(newSortedColumn);
-
     sortedData.unshift(header);
 
     this.setState({ data: sortedData, sortedColumn: newSortedColumn });
