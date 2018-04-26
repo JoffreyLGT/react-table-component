@@ -1,9 +1,26 @@
-import React, { Component } from "react";
+import React from "react";
+import SorterHeader from "./SorterHeader";
 
 const Table = props => {
-  const { data, handleSorting } = props;
+  const { data, handleSorting, sortedColumn } = props;
   const content = data.map(e => e);
   const header = content.shift();
+
+  // if (sortedColumn[1] === "asc") {
+  //   header[sortedColumn[0]] += '<i className="fas fa-sort-up" />';
+  // } else [(header[sortedColumn[0]] += '<i className="fas fa-sort-down" />')];
+
+  // const sortIcon = index => {
+  //   if (index === sortedColumn[0]) {
+  //     return sortedColumn[1] === "asc" ? (
+  //       <i key={`icon${index}`} className="fas fa-sort-up" />
+  //     ) : (
+  //       <i key={`icon${index}`} className="fas fa-sort-down" />
+  //     );
+  //   } else {
+  //     return <i key={`icon${index}`} className="fas fa-sort" />;
+  //   }
+  // };
 
   return (
     <table className="table is-striped is-narrow is-hoverable">
@@ -14,6 +31,8 @@ const Table = props => {
               <a id={`sortCol${index}`} onClick={handleSorting}>
                 {column}
               </a>
+              {console.log(sortedColumn[0])}
+              <SorterHeader key={`sh${index}`} index={index} sortedColumn={sortedColumn[0]} type={sortedColumn[1]} />
             </th>
           ))}
         </tr>
