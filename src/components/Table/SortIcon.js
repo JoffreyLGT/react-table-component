@@ -5,7 +5,7 @@ const SortedHeader = props => {
   let icon = "sort";
 
   if (index === sortedColumn) {
-    icon = type === "asc" ? "sort-down" : "sort-up";
+    icon = type === "asc" ? "sort-up" : "sort-down";
   }
 
   return (<i className={`fas fa-${icon}`} />)

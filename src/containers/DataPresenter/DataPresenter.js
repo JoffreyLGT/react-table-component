@@ -5,12 +5,21 @@ import "./style.css";
 class DataPresenter extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      data: this.props.data,
-      sortedColumn: [null, null]
-    };
+
     this.filterTable = this.filterTable.bind(this);
     this.handleSorting = this.handleSorting.bind(this);
+    this.sortTable = this.sortTable.bind(this);
+
+    const sortedColumn = [0, "desc"];
+    const filteredData = this.sortTable(
+      sortedColumn[0],
+      this.props.data,
+      sortedColumn[1]
+    );
+    this.state = {
+      data: filteredData,
+      sortedColumn: sortedColumn
+    };
   }
 
   filterTable(e) {
@@ -23,8 +32,12 @@ class DataPresenter extends Component {
     );
 
     filteredTable.unshift(header);
-
-    this.setState({ data: filteredTable });
+    const sortedTable = this.sortTable(
+      this.state.sortedColumn[0],
+      filteredTable,
+      this.state.sortedColumn[1]
+    );
+    this.setState({ data: sortedTable });
   }
 
   handleSorting(e) {
@@ -32,27 +45,43 @@ class DataPresenter extends Component {
       e.target.id.substring(7, e.target.id.lenght),
       10
     );
-    const sortedColumn = this.state.sortedColumn;
-    const sortedData = this.state.data.map(e => e);
     let newSortedColumn = [];
-
-    const header = sortedData.shift();
+    const sortedColumn = this.state.sortedColumn;
 
     if (sortedColumn[0] === colToSort) {
-      if (sortedColumn[1] === "desc") {
-        sortedData.sort((a, b) => b[colToSort].localeCompare(a[colToSort]));
-        newSortedColumn = [colToSort, "asc"];
+      if (sortedColumn[1] === "asc") {
+        newSortedColumn = [sortedColumn[0], "desc"];
       } else {
-        sortedData.sort((a, b) => a[colToSort].localeCompare(b[colToSort]));
-        newSortedColumn = [colToSort, "desc"];
+        newSortedColumn = [sortedColumn[0], "asc"];
       }
     } else {
-      sortedData.sort((a, b) => a[colToSort].localeCompare(b[colToSort]));
       newSortedColumn = [colToSort, "desc"];
+    }
+    const sortedData = this.sortTable(
+      newSortedColumn[0],
+      this.state.data,
+      newSortedColumn[1]
+    );
+
+    this.setState({ data: sortedData, sortedColumn: newSortedColumn });
+  }
+
+  sortTable(colToSort, data, way) {
+    const sortedData = data.map(e => e);
+
+    if (colToSort === null) {
+      return sortedData;
+    }
+
+    const header = sortedData.shift();
+    if (way === "desc") {
+      sortedData.sort((a, b) => b[colToSort].localeCompare(a[colToSort]));
+    } else {
+      sortedData.sort((a, b) => a[colToSort].localeCompare(b[colToSort]));
     }
     sortedData.unshift(header);
 
-    this.setState({ data: sortedData, sortedColumn: newSortedColumn });
+    return sortedData;
   }
 
   render() {

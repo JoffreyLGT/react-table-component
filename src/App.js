@@ -14,7 +14,7 @@ class App extends Component {
         .toString()
         .padStart(8, 0)
     ]);
-    data.unshift(["CIF", "Account number"]);
+    data.unshift(["File number", "CIF"]);
 
     return (
       <div className="App">
