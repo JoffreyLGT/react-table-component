@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
-import DataPresenter from "./containers/DataPresenter";
+import DataPresenter from "./containers/DataPresenter/DataPresenter";
 import "./App.css";
 
 class App extends Component {
@@ -14,7 +14,7 @@ class App extends Component {
         .toString()
         .padStart(8, 0)
     ]);
-    data.unshift(["CIF", "Account number"]);
+    data.unshift(["File number", "CIF"]);
 
     return (
       <div className="App">
